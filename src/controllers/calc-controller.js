@@ -1,12 +1,17 @@
+import { RaidingResourceBreakdown } from "../matrix/matrix-cost.js"
+
+const raidingResourceBreakdown = new RaidingResourceBreakdown()
 
 export class CalcController {
 
-    async apiTest(req, res, next) {
+    async raidGearCost(req, res, next) {
         res
             .status(200)
             .json({
-                Name: "Nisse"
+                Rocket: await raidingResourceBreakdown.rocketCost(),
+                Satchel: await raidingResourceBreakdown.satchelCost()
             })
     }
 
 }
+

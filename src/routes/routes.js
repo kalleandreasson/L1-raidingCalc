@@ -6,5 +6,5 @@ export const router = express.Router()
 const controller = new CalcController()
 
 // test
-router.get('/test', (req, res, next) => controller.apiTest(req, res, next))
+router.get('/test', (req, res, next) => controller.raidGearCost(req, res, next))
 

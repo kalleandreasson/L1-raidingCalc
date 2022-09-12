@@ -3,7 +3,6 @@ import { router } from './routes/routes.js'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import 'dotenv/config'
-
 try {
   
     const app = express()
