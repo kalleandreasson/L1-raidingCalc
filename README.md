@@ -7,11 +7,11 @@ Manuella tester:
 
 Datum: 9/18/2022, Verison: 45dd10f, Note: testing endpoints
 
-U1: The user should be able to retrieve the cost for all the raiding materials from the endpoint /costAll
+U1: The user should be able to retrieve the cost for all the raiding materials from the endpoint /costAll <br>
 U2: The user should be able to retrieve the cost for one specific raiding material multiplied by their amount input.
 
-TC1.1: endpoint /costAll should be sending a json respon with the cost for all raiding materials.
-TC1.2: endpoint /cost should be sending a json response with the cost for one of the raiding materials multiplied by the users amount input
+TC1.1: endpoint /costAll should be sending a json respon with the cost for all raiding materials. <br>
+TC2.1: endpoint /cost should be sending a json response with the cost for one of the raiding materials multiplied by the users amount input <br>
 
 | Test | UC1 | UC2 |
 |------|-----|-----|
