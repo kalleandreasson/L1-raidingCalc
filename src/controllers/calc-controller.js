@@ -19,29 +19,54 @@ export class CalcController {
 
     async raidCraftingCost(req, res, next) {
 
-        let jsonResponseCost = null
+        let jsonResponseCraftCost = null
 
         if (req.body.Item.toLowerCase() === "rocket") {
-            jsonResponseCost = await raidingResourceBreakdown.rocketCost(req.body.Amount)
+            jsonResponseCraftCost = await raidingResourceBreakdown.rocketCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "satchel") {
-            jsonResponseCost = await raidingResourceBreakdown.satchelCost(req.body.Amount)
+            jsonResponseCraftCost = await raidingResourceBreakdown.satchelCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "c4") {
-            jsonResponseCost = await raidingResourceBreakdown.c4Cost(req.body.Amount)
+            jsonResponseCraftCost = await raidingResourceBreakdown.c4Cost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "beancan") {
-            jsonResponseCost = await raidingResourceBreakdown.beancanCost(req.body.Amount)
+            jsonResponseCraftCost = await raidingResourceBreakdown.beancanCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "exploammo") {
-            jsonResponseCost = await raidingResourceBreakdown.exploAmmoCost(req.body.Amount)
+            jsonResponseCraftCost = await raidingResourceBreakdown.exploAmmoCost(req.body.Amount)
         }
 
         res
             .status(200)
             .json({
-                jsonResponseCost
+                jsonResponseCraftCost
             })
+    }
+
+    async raidingBuildWallCost(req, res, next) {
+
+        let jsonResponseBuildCost = null
+
+        if (req.body.Wall.toLowerCase() === "wood") {
+            jsonResponseBuildCost = await raidingResourceBreakdown.woodWall()
+        }
+        if (req.body.Wall.toLowerCase() === "stone") {
+            jsonResponseBuildCost = await raidingResourceBreakdown.stoneWall()
+        }
+        if (req.body.Wall.toLowerCase() === "metal") {
+            jsonResponseBuildCost = await raidingResourceBreakdown.metalWall()
+        }
+        if (req.body.Wall.toLowerCase() === "hqm") {
+            jsonResponseBuildCost = await raidingResourceBreakdown.hqmWall()
+        }
+
+        res
+        .status(200)
+        .json({
+            jsonResponseBuildCost
+        })
+
     }
 
     async calculateFastestRaidWay(req, res, next) {

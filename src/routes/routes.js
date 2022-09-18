@@ -10,3 +10,5 @@ router.get('/costAll', (req, res, next) => controller.raidGearCost(req, res, nex
 
 router.post('/cost', (req, res, next) => controller.raidCraftingCost(req, res, next))
 
+router.post('/buildCost', (req, res, next) => controller.raidingBuildWallCost(req, res, next))
+

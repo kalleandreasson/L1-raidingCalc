@@ -62,6 +62,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 247,
             exploAmmoDamage: 5
         }
+        return woodWall
     }
 
     async stoneWallHealth() {
@@ -85,6 +86,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 137,
             exploAmmoDamage: 2
         }
+        return metalWall
     }
 
     async hqmWallHealth() {
@@ -96,6 +98,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 137,
             exploAmmoDamage: 2
         }
+        return hqmWall
     }
 
     async woodDoorHealth() {
@@ -107,6 +110,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 'destroyed',
             exploAmmoDamage: 11
         }
+        return woodDoor
     }
 
     async metalDoorHealth() {
@@ -118,6 +122,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 220,
             exploAmmoDamage: 4
         }
+        return metalDoor
     }
 
     async garageDoorHealth() {
@@ -129,6 +134,7 @@ export class RaidingResourceBreakdown {
             rocketDamage: 220,
             exploAmmoDamage: 4,
         }
+        return garageDoor
     }
 
 
@@ -141,7 +147,51 @@ export class RaidingResourceBreakdown {
             rocketDamage: 220,
             exploAmmoDamage: 4
         }
+        return hqmDoor
     }
 
+    async woodWall() {
+        const woodWall = {
+            wallCost: 200,
+            foundation: 200,
+            square: 200,
+            triangle: 50,
+            triangleFoundation: 100
+        }
+        return woodWall
+    }
+
+    async stoneWall() {
+        const stoneWall = {
+            wallCost: 300,
+            foundation: 300,
+            square: 150,
+            triangle: 150,
+            trianlgeFoundation: 150
+        }
+        return stoneWall
+    }
+
+    async metalWall() {
+        const metalWall = {
+            wallCost: 200,
+            foundation: 200,
+            square: 100,
+            triangle: 50,
+            triangleFoundation: 100
+        }
+        return metalWall
+    }
+
+    async hqmWall() {
+        const hqmWall = {
+            wallCost: 25,
+            foundation: 25,
+            roof: 13,
+            triangle: 7,
+            triangleFoundation: 13
+        }
+        return hqmWall
+    }
 
 }
