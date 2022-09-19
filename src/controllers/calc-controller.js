@@ -1,6 +1,8 @@
 import { RaidingResourceBreakdown } from "../matrix/matrix-cost.js"
+import { BuildingResourceBreakdown } from "../matrix/matrix-buildHealth.js"
 
 const raidingResourceBreakdown = new RaidingResourceBreakdown()
+const buildingResourceBreakdown = new BuildingResourceBreakdown()
 
 export class CalcController {
 
@@ -49,16 +51,16 @@ export class CalcController {
         let jsonResponseBuildCost = null
 
         if (req.body.Wall.toLowerCase() === "wood") {
-            jsonResponseBuildCost = await raidingResourceBreakdown.woodWall()
+            jsonResponseBuildCost = await buildingResourceBreakdown.woodWallCost()
         }
         if (req.body.Wall.toLowerCase() === "stone") {
-            jsonResponseBuildCost = await raidingResourceBreakdown.stoneWall()
+            jsonResponseBuildCost = await buildingResourceBreakdown.stoneWallCost()
         }
         if (req.body.Wall.toLowerCase() === "metal") {
-            jsonResponseBuildCost = await raidingResourceBreakdown.metalWall()
+            jsonResponseBuildCost = await buildingResourceBreakdown.metalWallCost()
         }
         if (req.body.Wall.toLowerCase() === "hqm") {
-            jsonResponseBuildCost = await raidingResourceBreakdown.hqmWall()
+            jsonResponseBuildCost = await buildingResourceBreakdown.hqmWallCost()
         }
 
         res
@@ -70,6 +72,41 @@ export class CalcController {
     }
 
     async calculateFastestRaidWay(req, res, next) {
+
+        let wallHealth = 0
+        let Object = null
+
+        if (req.body.Wall.toLowerCase() === "wood") {
+            wallHealth = (await buildingResourceBreakdown.woodWallHealth()).health
+            Object = (await buildingResourceBreakdown.woodWallHealth())
+        }
+        if (req.body.Wall.toLowerCase() === "stone") {
+            wallHealth = (await buildingResourceBreakdown.stoneWallHealth()).health
+            Object = (await buildingResourceBreakdown.stoneWallHealth())
+        }
+        if (req.body.Wall.toLowerCase() === "metal") {
+            wallHealth = (await buildingResourceBreakdown.metalWallHealth()).health
+            Object = (await buildingResourceBreakdown.metalWallHealth())
+        }
+        if (req.body.Wall.toLowerCase() === "hqm") {
+            wallHealth = (await buildingResourceBreakdown.hqmWallHealth()).health
+            Object = (await buildingResourceBreakdown.hqmWallHealth())
+        }
+
+        //Kolla så den inte är destroyed på direkten
+        //Måste på något sätt upprepa första steget om den inte är destroyed. Gick inte att loopa på obj med obj.entries.
+        //Kan göra typ 21 ifsatser om jag räknade rätt men känns muppigt.
+        //TODO lista ut en bra algoritm. Både för snabbaste och billigaste vägen ner till 0
+
+        if (wallHealth - Object.c4Damage !== 'destroyed') {
+            wallHealth = wallHealth - Object.c4Damage
+        } if (wallHealth === NaN) {
+            wallHealth = wallHealth - Object.rocketDamage
+            console.log(wallHealth)
+        }
+    }
+
+    async calculateCheapestRaidWay(req, res, next) {
 
         req.body.WallType.toLowerCase
 
