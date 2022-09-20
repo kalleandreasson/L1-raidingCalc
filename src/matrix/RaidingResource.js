@@ -1,7 +1,7 @@
 
-export class RaidingResourceBreakdown {
+export class RaidingResource {
 
-    async rocketCost (amount) {
+    getRocketCost (amount) {
         const rocket = {
             sulfur: 1400 * amount,
             charcoal: 1950 * amount,
@@ -12,7 +12,7 @@ export class RaidingResourceBreakdown {
         return rocket
     }
     
-    async satchelCost (amount) {
+    getSatchelCost (amount) {
         const satchel = {
             sulfur: 420 * amount,
             charcoal: 720 * amount,
@@ -23,7 +23,7 @@ export class RaidingResourceBreakdown {
         return satchel
     }
 
-    async c4Cost(amount) {
+    getC4Cost(amount) {
         const c4 = {
             sulfur: 2200 * amount,
             charcoal: 3000 * amount,
@@ -35,7 +35,7 @@ export class RaidingResourceBreakdown {
         return c4
     }
 
-    async exploAmmoCost(amount) {
+    getExploAmmoCost(amount) {
         const exploAmmo = {
             sulfur: 50 * amount,
             charcoal: 60 * amount,
@@ -44,7 +44,7 @@ export class RaidingResourceBreakdown {
         return exploAmmo
     }
 
-    async beancanCost(amount) {
+    getBeancanCost(amount) {
         const beancan = {
             sulfur: 120 * amount,
             charcoal: 180 * amount,
@@ -52,6 +52,4 @@ export class RaidingResourceBreakdown {
         }
         return beancan
     }
-
-
 }

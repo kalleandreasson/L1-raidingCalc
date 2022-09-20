@@ -1,8 +1,8 @@
-import { RaidingResourceBreakdown } from "../matrix/matrix-cost.js"
-import { BuildingResourceBreakdown } from "../matrix/matrix-buildHealth.js"
+import { RaidingResource } from "../matrix/RaidingResource.js"
+import { BuildingResources } from "../matrix/BuildingResources.js"
 
-const raidingResourceBreakdown = new RaidingResourceBreakdown()
-const buildingResourceBreakdown = new BuildingResourceBreakdown()
+const raidingResource = new RaidingResource()
+const buildingResource = new BuildingResources()
 
 export class CalcController {
 
@@ -11,38 +11,38 @@ export class CalcController {
         res
             .status(200)
             .json({
-                Rocket: await raidingResourceBreakdown.rocketCost(),
-                Satchel: await raidingResourceBreakdown.satchelCost(),
-                C4: await raidingResourceBreakdown.c4Cost(),
-                Beancan: await raidingResourceBreakdown.beancanCost(),
-                ExploAmmo: await raidingResourceBreakdown.exploAmmoCost()
+                Rocket: raidingResource.getRocketCost(),
+                Satchel: raidingResource.getSatchelCost(),
+                C4: raidingResource.getC4Cost(),
+                Beancan: raidingResource.getBeancanCost(),
+                ExploAmmo: raidingResource.getExploAmmoCost()
             })
     }
 
     async raidCraftingCost(req, res, next) {
 
-        let jsonResponseCraftCost = null
+        let responseCraftCost = null
 
         if (req.body.Item.toLowerCase() === "rocket") {
-            jsonResponseCraftCost = await raidingResourceBreakdown.rocketCost(req.body.Amount)
+            responseCraftCost = raidingResource.getRocketCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "satchel") {
-            jsonResponseCraftCost = await raidingResourceBreakdown.satchelCost(req.body.Amount)
+            responseCraftCost = raidingResource.getSatchelCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "c4") {
-            jsonResponseCraftCost = await raidingResourceBreakdown.c4Cost(req.body.Amount)
+            responseCraftCost = raidingResource.getC4Cost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "beancan") {
-            jsonResponseCraftCost = await raidingResourceBreakdown.beancanCost(req.body.Amount)
+            responseCraftCost = raidingResource.getBeancanCost(req.body.Amount)
         }
         if (req.body.Item.toLowerCase() === "exploammo") {
-            jsonResponseCraftCost = await raidingResourceBreakdown.exploAmmoCost(req.body.Amount)
+            responseCraftCost = raidingResource.getExploAmmoCost(req.body.Amount)
         }
 
         res
             .status(200)
             .json({
-                jsonResponseCraftCost
+                responseCraftCost
             })
     }
 
@@ -51,16 +51,16 @@ export class CalcController {
         let jsonResponseBuildCost = null
 
         if (req.body.Wall.toLowerCase() === "wood") {
-            jsonResponseBuildCost = await buildingResourceBreakdown.woodWallCost()
+            jsonResponseBuildCost = await buildingResource.woodWallCost()
         }
         if (req.body.Wall.toLowerCase() === "stone") {
-            jsonResponseBuildCost = await buildingResourceBreakdown.stoneWallCost()
+            jsonResponseBuildCost = await buildingResource.stoneWallCost()
         }
         if (req.body.Wall.toLowerCase() === "metal") {
-            jsonResponseBuildCost = await buildingResourceBreakdown.metalWallCost()
+            jsonResponseBuildCost = await buildingResource.metalWallCost()
         }
         if (req.body.Wall.toLowerCase() === "hqm") {
-            jsonResponseBuildCost = await buildingResourceBreakdown.hqmWallCost()
+            jsonResponseBuildCost = await buildingResource.hqmWallCost()
         }
 
         res
@@ -74,36 +74,55 @@ export class CalcController {
     async calculateFastestRaidWay(req, res, next) {
 
         let wallHealth = 0
-        let Object = null
+        let wallObject = null
 
         if (req.body.Wall.toLowerCase() === "wood") {
-            wallHealth = (await buildingResourceBreakdown.woodWallHealth()).health
-            Object = (await buildingResourceBreakdown.woodWallHealth())
+            wallObject = buildingResource.getWoodWall()
+            wallHealth = wallObject.health  
         }
         if (req.body.Wall.toLowerCase() === "stone") {
-            wallHealth = (await buildingResourceBreakdown.stoneWallHealth()).health
-            Object = (await buildingResourceBreakdown.stoneWallHealth())
+            wallObject = buildingResource.getStoneWall()
+            wallHealth = wallObject.health  
         }
         if (req.body.Wall.toLowerCase() === "metal") {
-            wallHealth = (await buildingResourceBreakdown.metalWallHealth()).health
-            Object = (await buildingResourceBreakdown.metalWallHealth())
+            wallObject = buildingResource.getMetalWall()
+            wallHealth = wallObject.health  
         }
         if (req.body.Wall.toLowerCase() === "hqm") {
-            wallHealth = (await buildingResourceBreakdown.hqmWallHealth()).health
-            Object = (await buildingResourceBreakdown.hqmWallHealth())
+            wallObject = buildingResource.getHqmWall()
+            wallHealth = wallObject.health  
         }
 
         //Kolla så den inte är destroyed på direkten
-        //Måste på något sätt upprepa första steget om den inte är destroyed. Gick inte att loopa på obj med obj.entries.
-        //Kan göra typ 21 ifsatser om jag räknade rätt men känns muppigt.
+        //Om det inte är destroyed så testar jag med sprängmedlet som gör mest skada, går det inte sönder då så testar jag igen.
+        //Om väggen för under 0 liv så testar jag med ett annat sprängmedel. det som är näst bäst. sen forstätter man och trappar ner tills du kommer så nära 0 som möjligt.
         //TODO lista ut en bra algoritm. Både för snabbaste och billigaste vägen ner till 0
 
-        if (wallHealth - Object.c4Damage !== 'destroyed') {
-            wallHealth = wallHealth - Object.c4Damage
-        } if (wallHealth === NaN) {
-            wallHealth = wallHealth - Object.rocketDamage
-            console.log(wallHealth)
-        }
+        //Måste på något sätt kunna upprepa samma itteration om det går att köra samma sprängmedel 2 ggr
+        //Måste spara vad som använda på något sätt, om man kunde använda det utan att väggen gick sönder ska det sparas.
+
+        //TODO: Göra en koll om jag är på mitt lägsta vapen och har t.ex 1 i liv på väggen så kan jag inte ta sönder, då ska jag ta sönder endån med lägsta vapen.
+        //TODO: raidcalculator ska brytas ut till en egen class och inte ligga i controller
+    
+        let weaponUse = ''
+
+        do {
+           
+            for (let weapon of wallObject.damageArray.entries()) {
+                let weaponName = weapon[0]
+                let weaponDamage = weapon[1]
+                if (weaponDamage === -1) {
+                    continue
+                }
+                if (wallHealth - weaponDamage < 0) {
+                    continue
+                }
+                wallHealth -= weaponDamage
+                weaponUse += weaponName + ', '
+                break
+            }
+            
+        } while (wallHealth > 0);
     }
 
     async calculateCheapestRaidWay(req, res, next) {
