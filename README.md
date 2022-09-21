@@ -5,7 +5,7 @@
 # Test Rapport
 Manuella tester:
 
-Datum: 9/18/2022, Verison: 45dd10f, Note: testing endpoints
+Datum: 9/21/2022, Verison: 35d3575, Note: testing endpoints
 
 U1: The user should be able to retrieve the cost for all the raiding materials from the endpoint /costAll <br>
 U2: The user should be able to retrieve the cost for one specific raiding material multiplied by their amount input from the endpoint /cost <br>
