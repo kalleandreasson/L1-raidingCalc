@@ -1,6 +1,8 @@
 import { RaidingResource } from "../matrix/RaidingResource.js"
 import { BuildingResources } from "../matrix/BuildingResources.js"
+import { Calculator } from "../calculator/calculator.js"
 
+const calculator = new Calculator
 const raidingResource = new RaidingResource()
 const buildingResource = new BuildingResources()
 
@@ -48,27 +50,75 @@ export class CalcController {
 
     async raidingBuildWallCost(req, res, next) {
 
-        let jsonResponseBuildCost = null
+        let ResponseBuildCost = null
 
-        if (req.body.Wall.toLowerCase() === "wood") {
-            jsonResponseBuildCost = await buildingResource.woodWallCost()
+        if (req.body.Grade.toLowerCase() === "wood") {
+            ResponseBuildCost = await buildingResource.woodWallCost()
         }
-        if (req.body.Wall.toLowerCase() === "stone") {
-            jsonResponseBuildCost = await buildingResource.stoneWallCost()
+        if (req.body.Grade.toLowerCase() === "stone") {
+            ResponseBuildCost = await buildingResource.stoneWallCost()
         }
-        if (req.body.Wall.toLowerCase() === "metal") {
-            jsonResponseBuildCost = await buildingResource.metalWallCost()
+        if (req.body.Grade.toLowerCase() === "metal") {
+            ResponseBuildCost = await buildingResource.metalWallCost()
         }
-        if (req.body.Wall.toLowerCase() === "hqm") {
-            jsonResponseBuildCost = await buildingResource.hqmWallCost()
+        if (req.body.Grade.toLowerCase() === "hqm") {
+            ResponseBuildCost = await buildingResource.hqmWallCost()
         }
 
         res
         .status(200)
         .json({
-            jsonResponseBuildCost
+            ResponseBuildCost
         })
 
+    }
+
+    async calculateCheapEfficentRaidWay(req, res, next) {
+
+        let wallHealth = 0
+        let wallObject = null
+
+        if (req.body.Wall.toLowerCase() === "wood") {
+            wallObject = buildingResource.getWoodWall()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "stone") {
+            wallObject = buildingResource.getStoneWall()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "metal") {
+            wallObject = buildingResource.getMetalWall()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "hqm") {
+            wallObject = buildingResource.getHqmWall()
+            wallHealth = wallObject.health  
+        }
+        //Doors below, they are treated the same way as walls
+        if (req.body.Wall.toLowerCase() === "wooddoor") {
+            wallObject = buildingResource.getWoodDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "metaldoor") {
+            wallObject = buildingResource.getMetalDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "garagedoor") {
+            wallObject = buildingResource.getGarageDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "hqmdoor") {
+            wallObject = buildingResource.getHqmDoor()
+            wallHealth = wallObject.health  
+        }
+
+        const responseRaidResources = await calculator.calculateCheapEfficentRaidWay(wallHealth, wallObject)
+
+        res
+        .status(200)
+        .json({
+            responseRaidResources
+        })
     }
 
     async calculateFastestRaidWay(req, res, next) {
@@ -93,43 +143,32 @@ export class CalcController {
             wallHealth = wallObject.health  
         }
 
-        //Kolla så den inte är destroyed på direkten
-        //Om det inte är destroyed så testar jag med sprängmedlet som gör mest skada, går det inte sönder då så testar jag igen.
-        //Om väggen för under 0 liv så testar jag med ett annat sprängmedel. det som är näst bäst. sen forstätter man och trappar ner tills du kommer så nära 0 som möjligt.
-        //TODO lista ut en bra algoritm. Både för snabbaste och billigaste vägen ner till 0
+         //Doors below, they are treated the same way as walls
+         if (req.body.Wall.toLowerCase() === "wooddoor") {
+            wallObject = buildingResource.getWoodDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "metaldoor") {
+            wallObject = buildingResource.getMetalDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "garagedoor") {
+            wallObject = buildingResource.getGarageDoor()
+            wallHealth = wallObject.health  
+        }
+        if (req.body.Wall.toLowerCase() === "hqmdoor") {
+            wallObject = buildingResource.getHqmDoor()
+            wallHealth = wallObject.health  
+        }
 
-        //Måste på något sätt kunna upprepa samma itteration om det går att köra samma sprängmedel 2 ggr
-        //Måste spara vad som använda på något sätt, om man kunde använda det utan att väggen gick sönder ska det sparas.
+        const responseRaidResources = await calculator.calculateFastestRaidWay(wallHealth, wallObject)
 
-        //TODO: Göra en koll om jag är på mitt lägsta vapen och har t.ex 1 i liv på väggen så kan jag inte ta sönder, då ska jag ta sönder endån med lägsta vapen.
-        //TODO: raidcalculator ska brytas ut till en egen class och inte ligga i controller
-    
-        let weaponUse = ''
-
-        do {
-           
-            for (let weapon of wallObject.damageArray.entries()) {
-                let weaponName = weapon[0]
-                let weaponDamage = weapon[1]
-                if (weaponDamage === -1) {
-                    continue
-                }
-                if (wallHealth - weaponDamage < 0) {
-                    continue
-                }
-                wallHealth -= weaponDamage
-                weaponUse += weaponName + ', '
-                break
-            }
-            
-        } while (wallHealth > 0);
-    }
-
-    async calculateCheapestRaidWay(req, res, next) {
-
-        req.body.WallType.toLowerCase
+        res
+        .status(200)
+        .json({
+            responseRaidResources
+        })
 
     }
 
 }
-
