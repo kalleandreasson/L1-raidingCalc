@@ -38,7 +38,11 @@ Tanken är att min module kommer hjälpa folk som bygger appar som kretsar runt 
 
 ​
 ## Beskrivning av min kod
-Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild. Använd det ni lärt er så här långt i 1dv607. Kommunicera så att jag kan förstå.
+Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild. Använd det ni lärt er så här långt i 1dv607. Kommunicera så att jag kan förstå.<br>
+<br>
+REST API som underlättar för andra programmerare som ska bygga någon applikation som har med raiding att göra. Mitt API har 5st endpoints och alla returnerar information. Allt ifrån billigaste till snabbaste sättet att förstöra dörrar och väggar i spelet Rust. NOTE: dörrar är behandlade på exakt samma sätt som väggar. Viktigaste klassen är nog controller klassen som kallar på alla metoder efter att progammeraren har använt REST API:et. En annan viktig class är calculator som beräknar billigaste och snabbaste sättet att förstöra väggar/dörrar.
+
+Applikationen är ett REST API som används för att ta reda på hur mycket det kostar att förstöra väggar/dörrar, hur mycket det kostar att bygga dom olika väggarna samt vilka material man ska använda. API:et är inriktat till programmerare som vill göra en App utefter mitt API. Applikationen består utav många olika metoder och klasser men dom två viktigaste är controller classen som kallar på alla olika metoder efter usern har använt API:et. calculator classen och metoderna är också väldigt viktiga det är classen som innehåller metoderna som räknar ut både billigaste och snabbaste sättet att förstöra en vägg/dörr samt vilka material du ska använda. 
 ​
 ## Hur jag testat
 Beskriv hur du kommit fram till om din kod fungerar.<br>
