@@ -1,19 +1,19 @@
 # Mall för inlämning laboration 1, 1dv610
 ​
 ## Checklista
-  - [ ] Jag har skrivit all kod och reflektioner själv. Jag har inte använt mig av andras kod för att lösa uppgiften.
-  - [ ] Mina testresultat är skrivna utifrån utförd testning ( och inte teoretiskt: "det bör fungera" :) )
-  - [ ] Koden är objektorienterad
-  - [ ] Jag har skrivit en modul som riktar sig till programmerare
+  - [x] Jag har skrivit all kod och reflektioner själv. Jag har inte använt mig av andras kod för att lösa uppgiften.
+  - [x] Mina testresultat är skrivna utifrån utförd testning ( och inte teoretiskt: "det bör fungera" :) )
+  - [x] Koden är objektorienterad
+  - [x] Jag har skrivit en modul som riktar sig till programmerare
 ​
 ## Egenskattning och mål
-  - [ ] Jag är inte klar eftersom jag vet att jag saknar något. (Då skall du inte lämna in! Lämna då istället in på restlaboration.)
-  - [ ] Jag eftersträvar med denna inlämning godkänt betyg (E-D)
-    - [ ] De flesta testfall fungerar
-    - [ ] Koden är förberedd på Återanvändning
-    - [ ] All kod samt historik finns i git 
-    - [ ] Kodkvaliterskraven är ifyllda
-    - [ ] Reflektion är skriven utifrån bokens kapitel 
+  - [x] Jag är inte klar eftersom jag vet att jag saknar något. (Då skall du inte lämna in! Lämna då istället in på restlaboration.)
+  - [x] Jag eftersträvar med denna inlämning godkänt betyg (E-D)
+    - [x] De flesta testfall fungerar
+    - [x] Koden är förberedd på Återanvändning
+    - [x] All kod samt historik finns i git 
+    - [x] Kodkvaliterskraven är ifyllda
+    - [x] Reflektion är skriven utifrån bokens kapitel 
   - [ ] Jag eftersträvar med denna inlämning högre betyg (C-B) och anser mig uppfylla alla extra krav för detta. 
     - [ ] Samtliga testfall är skrivna    
     - [ ] Testfall är automatiserade
@@ -25,6 +25,17 @@ Förtydligande: Examinator kommer sätta betyg oberoende på vad ni anser.
 ​
 ## Återanvändning
 Beskriv hur du anpassat din kod och instruktioner för att någon annan programmerare skall kunna använda din modul. Om du skrivit instruktioner för din användare, länka till dessa. Om inte, beskriv här hur någon skall göra för att använda din modul.
+
+Jag har byggt ett API med 5st endpoints med base API endpoint: https://cscloud7-246.lnu.se/rust-raid-calc/ <br>
+/costAll - GET<br>
+/cost - POST<br>
+/buildCost - POST<br>
+/raidCheapestWay - POST<br>
+/raidFastestWay - POST<br>
+I repot finns det en fil som heter 'exampleApp.js' där alla API endpoints demonstreras att dom fungerar.<br>
+
+Tanken är att min module kommer hjälpa folk som bygger appar som kretsar runt spelet Rust. Min module skickar tillbaka json response med information om hur man bäst förstör väggar i Rust. Samt information om hur mycket en vägg kostar att bygga. 
+
 ​
 ## Beskrivning av min kod
 Beskriv din kod på en hög abstraktionsnivå. En kort beskrivning av dina viktigaste klasser och metoder. Skapa gärna ett klassdiagram som bild. Använd det ni lärt er så här långt i 1dv607. Kommunicera så att jag kan förstå.
