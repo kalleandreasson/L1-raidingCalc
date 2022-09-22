@@ -114,7 +114,6 @@ export class BuildingResources {
     }
 
 
-    //COSTS NOT DAMAGE SHEET
 
 
     async woodWallCost() {

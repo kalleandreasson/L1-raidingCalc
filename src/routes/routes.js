@@ -12,7 +12,7 @@ router.post('/cost', (req, res, next) => controller.raidCraftingCost(req, res, n
 
 router.post('/buildCost', (req, res, next) => controller.raidingBuildWallCost(req, res, next))
 
-router.post('/raidCheapestWay', (req, res, next) => controller.calculateCheapEfficentRaidWay(req, res, next))
+router.post('/raidCheapestWay', (req, res, next) => controller.cheapEfficentRaidWay(req, res, next))
 
-router.post('/raidFastestWay', (req, res, next) => controller.calculateFastestRaidWay(req, res, next))
+router.post('/raidFastestWay', (req, res, next) => controller.fastestRaidWay(req, res, next))
 

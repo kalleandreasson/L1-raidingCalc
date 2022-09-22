@@ -75,7 +75,7 @@ export class CalcController {
 
     }
 
-    async calculateCheapEfficentRaidWay(req, res, next) {
+    async cheapEfficentRaidWay(req, res, next) {
 
         let wallHealth = 0
         let wallObject = null
@@ -123,7 +123,7 @@ export class CalcController {
         })
     }
 
-    async calculateFastestRaidWay(req, res, next) {
+    async fastestRaidWay(req, res, next) {
 
         let wallHealth = 0
         let wallObject = null
@@ -172,5 +172,6 @@ export class CalcController {
         })
 
     }
-
+    
+    
 }
