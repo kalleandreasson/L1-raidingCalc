@@ -61,13 +61,14 @@ Jag har utfört manuella tester på alla mina API endpoints, jag har dokumentera
 | Namn och förklaring  | Reflektion                                   |
 | -------------------  | ---------------------------------------------|
 | **damageArray**<br> Namn på property i objekt | **Make Meaningful Distinctions** Jag använder ett variable word vilket är 'Array' om jag hade haft ett bättre namn hade jag inte behövt ha 'Array' i namnet.<br> **Avoid Disinformation** Namnet har inga felaktiga ledtrådar. Man fattar klart och tydligt att det är en lista med skada/skador.<br> **Use Pronounceable Namnes** Namnet är kort, lättläst och lätt att uttala |
-| **getStoneWall** Namn på metod |  **Use Intention-Revealing Names** namnet förklarar exakt vad som händer, du hämtar ett stone wall objekt.<br> **Use Searchable Names** Namnet innehåller inga siffror eller konstiga tecken. Namnet är tydligt och därför lättsökt vilket är viktigt för jag har många get metoder.                                             |
+
 ​
 ### Funktioner
 ​
 | Metodnamn och förklaring  | Reflektion                                   |
 | -------------------  | ---------------------------------------------|
-|                      |                                              |
+| **calculateCheapEfficentRaidWay** <br> metod namn som räknar ut billigaste sättet att förstöra en vägg utan att det tar alldelles för lång tid. 'cheap efficent'                     |  **Method Names** Metod har ett tydligt verb som är calculate. <br> **Use Intention-Revealing Names** Namnet på metoden förklara exakt vad metoden gör vilket är |att räkna utt snabbaste sättat att förstöra en vägg som endån är effektivt                                            |
+| **getStoneWall**<br> Namn på metod där ett stone wall objekt hämtas ut |  **Use Intention-Revealing Names** namnet förklarar exakt vad som händer, du hämtar ett stone wall objekt.<br> **Use Searchable Names** Namnet innehåller inga siffror eller konstiga tecken. Namnet är tydligt och därför lättsökt vilket är viktigt för jag har många get metoder.                                             |
 ​
 ## Laborationsreflektion
 Reflektera över uppgiften utifrån ett kodkvalitetsperspektiv. Använd begrepp ifrån boken. 
