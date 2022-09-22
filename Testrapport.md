@@ -1,7 +1,3 @@
-# L1-raidingCalc
-
-
-
 # Test Rapport
 Manuella tester:
 
