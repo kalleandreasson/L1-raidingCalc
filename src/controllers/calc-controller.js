@@ -10,14 +10,16 @@ export class CalcController {
 
     async raidGearCost(req, res, next) {
 
+        const amount = 1
+
         res
             .status(200)
             .json({
-                Rocket: raidingResource.getRocketCost(),
-                Satchel: raidingResource.getSatchelCost(),
-                C4: raidingResource.getC4Cost(),
-                Beancan: raidingResource.getBeancanCost(),
-                ExploAmmo: raidingResource.getExploAmmoCost()
+                Rocket: raidingResource.getRocketCost(amount),
+                Satchel: raidingResource.getSatchelCost(amount),
+                C4: raidingResource.getC4Cost(amount),
+                Beancan: raidingResource.getBeancanCost(amount),
+                ExploAmmo: raidingResource.getExploAmmoCost(amount)
             })
     }
 
