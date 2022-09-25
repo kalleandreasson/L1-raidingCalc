@@ -23,6 +23,7 @@
   "dependencies": {
     "dotenv": "^16.0.2",
     "express": "^4.17.3",
-    "helmet": "^5.0.2"
+    "helmet": "^5.0.2",
+    "node-fetch": "^3.2.10"
   }
 }

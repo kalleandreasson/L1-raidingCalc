@@ -53,6 +53,7 @@ export class CalcController {
     async raidingBuildWallCost(req, res, next) {
 
         let ResponseBuildCost = null
+        console.log(req.body)
 
         if (req.body.Grade.toLowerCase() === "wood") {
             ResponseBuildCost = await buildingResource.woodWallCost()
