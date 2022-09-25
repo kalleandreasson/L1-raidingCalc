@@ -3,9 +3,7 @@ export class Calculator {
 
     async calculateCheapEfficentRaidWay(wallHealth, wallObject) {
         let excessiveDamageMax = -10
-        let weaponUse = {
-         
-        }
+        let weaponUse = ""
 
         do {
            
@@ -19,7 +17,7 @@ export class Calculator {
                     continue
                 }
                 wallHealth -= weaponDamage
-                weaponUse += weaponName
+                weaponUse += weaponName + ", "
                 if (wallHealth < 0) {
                     console.log(wallHealth)
                     console.log('wall is destroyed')
@@ -34,9 +32,7 @@ export class Calculator {
 
     async calculateFastestRaidWay(wallHealth, wallObject) {
         let excessiveDamageMax = -75
-        let weaponUse = {
-            
-        }
+        let weaponUse = ""
 
         do {
            
@@ -50,7 +46,7 @@ export class Calculator {
                     continue
                 }
                 wallHealth -= weaponDamage
-                weaponUse += weaponName
+                weaponUse += weaponName + ", "
                 if (wallHealth < 0) {
                     console.log(wallHealth)
                     console.log('wall is destroyed')
